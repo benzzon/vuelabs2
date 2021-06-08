@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product App</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <!--
+    Testing of Vue,
+    https://www.vuemastery.com/courses/intro-to-vue-js/vue-instance/
+    -->
+
+    <!--
+        Get "backtick-character" on swedish keyboard by Shift-´ and pressing spacebar..
+        `````
+    -->
+
+<div class="nav-bar"></div>
+
+<div id="app">
+    <div class="product">
+
+        <div class="product-image">
+            <img v-bind:src="image">
+            <!-- Shorthand for "v-bind:" is just a colon ":".-->
+        </div>
+
+        <div class="product-info">
+            <!-- Example of a "computed property" -->
+            <!-- Computed properties are cached giving better performance than vue-methods.. -->
+            <h1>{{ title }}</h1> 
+
+            <p v-if="inStock">In Stock</p>
+            <p v-else :class="{ outOfStock: !inStock }">Out of Stock</p>
+
+            <a v-bind:href="someRef">A link</a>
+            <span v-if="onSale">On sale!</span> <!-- "v-show" will give better performance since it will just "hide" the element-->
+
+            <ul>
+                <li v-for="detail in details"> {{ detail }}</li>
+            </ul>
+
+            <div v-for="(variant, index) in variants" :key="variant.variantId"
+            class="color-box"
+            :style="{ backgroundColor: variant.variantColor }"
+            v-on:mouseover="updateProduct(index)">
+            </div>
+
+            <button v-on:click="addToCart"
+            v-bind:disabled="!inStock"
+            v-bind:class="{ disabledButton: !inStock }"
+            >Add to Cart</button>
+            <button v-on:click="removeFromCart">Rem from Cart</button>
+            <div class="cart">
+                <p>Cart({{cart}})</p>
+                <p class=""></p>
+            </div>
+
+            <div>{{someThing}}</div>
+
+    
+        </div>
+
+
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script> <!-- /npm/vue ? -->
+<script src="main.js"></script>
+
+</body>
+</html>
